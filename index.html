@@ -2,283 +2,268 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Premium Study Platform - Notes, Tests, Quiz, Current Affairs" />
-  <meta name="theme-color" content="#2563eb" />
-  <title>StudySphere</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MovieHub - Discover Movies</title>
   <style>
-    :root{
-      --bg:#f4f8ff;
-      --bg2:#eaf2ff;
-      --text:#0f172a;
-      --muted:#5b6b86;
-      --primary:#2563eb;
-      --primary2:#1d4ed8;
-      --card:rgba(255,255,255,.66);
-      --border:rgba(255,255,255,.55);
-      --shadow:0 14px 34px rgba(37,99,235,.12);
-      --radius:22px;
+    /* ===== RESET & BASE ===== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
-    [data-theme="dark"]{
-      --bg:#07111f;
-      --bg2:#0b1b33;
-      --text:#e8f1ff;
-      --muted:#9ab0cf;
-      --primary:#60a5fa;
-      --primary2:#3b82f6;
-      --card:rgba(10,18,36,.66);
-      --border:rgba(255,255,255,.08);
-      --shadow:0 14px 34px rgba(0,0,0,.3);
-    }
-    *{box-sizing:border-box}
-    html{scroll-behavior:smooth}
-    body{
-      margin:0;
-      font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
-      color:var(--text);
-      background:radial-gradient(circle at top, var(--bg2), var(--bg));
-      min-height:100vh;
-    }
-    a{text-decoration:none;color:inherit}
-    .glass{
-      background:var(--card);
-      backdrop-filter:blur(18px);
-      border:1px solid var(--border);
-      box-shadow:var(--shadow);
-    }
-    .navbar{
-      position:sticky; top:0; z-index:100;
-      display:flex; align-items:center; justify-content:space-between;
-      gap:12px; padding:14px 18px;
-      background:rgba(255,255,255,.18);
-      backdrop-filter:blur(16px);
-      border-bottom:1px solid var(--border);
-    }
-    .brand{display:flex; align-items:center; gap:12px}
-    .logo{
-      width:44px;height:44px;border-radius:14px;
-      display:grid;place-items:center;
-      background:linear-gradient(135deg,var(--primary),#8b5cf6);
-      color:#fff;font-weight:700;font-size:1.2rem;
-    }
-    .brand h1{margin:0;font-size:1.05rem}
-    .brand p{margin:2px 0 0;color:var(--muted);font-size:.82rem}
-    .nav-links{display:flex; gap:18px; align-items:center}
-    .nav-links a{color:var(--text); font-weight:500; opacity:.92}
-    .nav-links a:hover{color:var(--primary)}
-    .icon-btn,.menu-btn{
-      border:0; cursor:pointer; border-radius:12px;
-      padding:10px 12px; font-size:1rem;
-      background:var(--card); color:var(--text);
-    }
-    .menu-btn{display:none}
-
-    main{padding:18px; max-width:1200px; margin:0 auto}
-    .hero{
-      display:grid; grid-template-columns:1.5fr .95fr; gap:18px;
-      align-items:stretch; margin-top:10px;
-    }
-    .hero-content,.hero-card,.card,.stat{
-      border-radius:var(--radius); padding:22px;
-    }
-    .badge{
-      display:inline-block; padding:8px 12px; border-radius:999px;
-      background:rgba(37,99,235,.12); color:var(--primary); font-weight:700; font-size:.85rem;
-    }
-    .hero h2{font-size:clamp(1.8rem,4vw,3.4rem); line-height:1.05; margin:14px 0}
-    .hero p{color:var(--muted); font-size:1rem; line-height:1.7}
-    .hero-actions{display:flex; gap:12px; flex-wrap:wrap; margin-top:18px}
-    .primary-btn,.secondary-btn{
-      padding:12px 18px; border-radius:14px; font-weight:700;
-      transition:.25s ease; display:inline-block;
-    }
-    .primary-btn{background:linear-gradient(135deg,var(--primary),var(--primary2)); color:#fff}
-    .secondary-btn{background:var(--card); border:1px solid var(--border)}
-    .primary-btn:hover,.secondary-btn:hover{transform:translateY(-2px)}
-    .hero-card input{
-      width:100%; padding:14px 16px; border-radius:14px;
-      border:1px solid var(--border); outline:none;
-      background:rgba(255,255,255,.12); color:var(--text); margin:10px 0 14px;
-    }
-    .filters{display:flex; gap:10px; flex-wrap:wrap}
-    .filter{
-      border:1px solid var(--border); background:transparent; color:var(--text);
-      padding:10px 14px; border-radius:999px; cursor:pointer;
-    }
-    .filter.active{background:var(--primary); color:#fff}
-
-    .stats,.grid{display:grid; gap:16px}
-    .stats{grid-template-columns:repeat(4,1fr); margin:18px 0 26px}
-    .stat h3{margin:0;font-size:1.5rem}
-    .stat p{margin:6px 0 0;color:var(--muted)}
-    .section{margin:28px 0}
-    .section h2{margin:0 0 16px;font-size:1.6rem}
-    .grid{grid-template-columns:repeat(4,1fr)}
-    .card{min-height:140px}
-    .card h3{margin:0 0 8px}
-    .card p{margin:0;color:var(--muted);line-height:1.7}
-    .link-card{display:block; transition:.25s ease}
-    .link-card:hover{transform:translateY(-4px)}
-    .chip-row{display:flex;gap:10px;flex-wrap:wrap}
-    .chip{
-      padding:10px 14px;border-radius:999px;
-      background:rgba(37,99,235,.09); color:var(--text);
-      border:1px solid var(--border); font-weight:600;
-    }
-    .footer{
-      padding:24px 18px; text-align:center; color:var(--muted);
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #0f172a;
+      color: #e2e8f0;
+      line-height: 1.6;
     }
 
-    @media (max-width: 920px){
-      .hero,.grid,.stats{grid-template-columns:1fr 1fr}
+    /* ===== HEADER ===== */
+    header {
+      background: linear-gradient(90deg, #1e3a8a, #3b82f6);
+      padding: 1.5rem 1rem;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
     }
-    @media (max-width: 680px){
-      .nav-links{
-        display:none; position:absolute; top:68px; left:18px; right:18px;
-        padding:16px; border-radius:18px; flex-direction:column;
-        background:var(--card); border:1px solid var(--border);
-      }
-      .nav-links.show{display:flex}
-      .menu-btn{display:inline-block}
-      .hero,.grid,.stats{grid-template-columns:1fr}
+    header h1 {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+    header p {
+      font-size: 0.95rem;
+      opacity: 0.9;
+    }
+
+    /* ===== SEARCH & FILTER ===== */
+    .controls {
+      max-width: 1100px;
+      margin: 1.5rem auto;
+      padding: 0 1rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+    }
+    .search-box {
+      flex: 1 1 300px;
+      padding: 0.7rem 1rem;
+      border-radius: 8px;
+      border: none;
+      background: #1e293b;
+      color: #e2e8f0;
+      font-size: 1rem;
+    }
+    .filter-box {
+      flex: 1 1 200px;
+      padding: 0.7rem 1rem;
+      border-radius: 8px;
+      border: none;
+      background: #1e293b;
+      color: #e2e8f0;
+      font-size: 1rem;
+    }
+
+    /* ===== MOVIE GRID ===== */
+    .movie-grid {
+      max-width: 1100px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1.5rem;
+    }
+    .movie-card {
+      background: #1e293b;
+      border-radius: 10px;
+      overflow: hidden;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .movie-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 10px 24px rgba(0,0,0,0.4);
+    }
+    .movie-poster {
+      width: 100%;
+      height: 320px;
+      object-fit: cover;
+      background: #334155;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      color: #94a3b8;
+    }
+    .movie-info {
+      padding: 1rem;
+    }
+    .movie-title {
+      font-size: 1.1rem;
+      margin-bottom: 0.4rem;
+    }
+    .movie-meta {
+      font-size: 0.85rem;
+      color: #94a3b8;
+      margin-bottom: 0.6rem;
+    }
+    .movie-desc {
+      font-size: 0.9rem;
+      margin-bottom: 0.8rem;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .download-btn {
+      width: 100%;
+      padding: 0.6rem;
+      border: none;
+      border-radius: 6px;
+      background: #3b82f6;
+      color: #fff;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+    .download-btn:hover {
+      background: #2563eb;
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      text-align: center;
+      padding: 2rem 1rem;
+      font-size: 0.9rem;
+      color: #94a3b8;
+      margin-top: 2rem;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 600px) {
+      header h1 { font-size: 1.6rem; }
+      .movie-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
-  <header class="navbar">
-    <div class="brand">
-      <div class="logo">S</div>
-      <div>
-        <h1>StudySphere</h1>
-        <p>Learn smart. Practice daily.</p>
-      </div>
-    </div>
 
-    <nav class="nav-links" id="navLinks">
-      <a href="#home">Home</a>
-      <a href="#features">Features</a>
-      <a href="#categories">Notes</a>
-      <a href="#quick">Quick Links</a>
-      <a href="#contact">Contact</a>
-    </nav>
-
-    <button class="icon-btn" id="themeToggle" aria-label="Toggle theme">🌙</button>
-    <button class="menu-btn" id="menuBtn" aria-label="Open menu">☰</button>
+  <header>
+    <h1>🎬 MovieHub</h1>
+    <p>Discover & Explore Movies (Demo UI)</p>
   </header>
 
-  <main id="home">
-    <section class="hero">
-      <div class="hero-content glass">
-        <span class="badge">Premium Study Platform</span>
-        <h2>Study, practice, and track progress with a clean mobile-first dashboard.</h2>
-        <p>Original design, blue-white premium look, smooth UI, and GitHub Pages friendly one-file setup.</p>
-        <div class="hero-actions">
-          <a class="primary-btn" href="#quick">Start Learning</a>
-          <a class="secondary-btn" href="#features">See Features</a>
-        </div>
-        <div class="chip-row" style="margin-top:18px">
-          <span class="chip">Notes</span>
-          <span class="chip">Mock Tests</span>
-          <span class="chip">Quiz</span>
-          <span class="chip">Current Affairs</span>
-          <span class="chip">Papers</span>
-        </div>
-      </div>
+  <div class="controls">
+    <input type="text" id="searchInput" class="search-box" placeholder="Search movies..." />
+    <select id="categoryFilter" class="filter-box">
+      <option value="all">All Categories</option>
+      <option value="Action">Action</option>
+      <option value="Comedy">Comedy</option>
+      <option value="Drama">Drama</option>
+      <option value="Sci-Fi">Sci-Fi</option>
+      <option value="Horror">Horror</option>
+    </select>
+  </div>
 
-      <div class="hero-card glass">
-        <h3>Search Study Content</h3>
-        <input type="text" id="searchInput" placeholder="Search notes, tests, quiz..." />
-        <div class="filters">
-          <button class="filter active" data-filter="all">All</button>
-          <button class="filter" data-filter="notes">Notes</button>
-          <button class="filter" data-filter="tests">Tests</button>
-          <button class="filter" data-filter="quiz">Quiz</button>
-        </div>
-      </div>
-    </section>
+  <div id="movieGrid" class="movie-grid">
+    <!-- Movie cards will be injected here by JS -->
+  </div>
 
-    <section class="stats">
-      <div class="stat glass"><h3>120+</h3><p>Study Notes</p></div>
-      <div class="stat glass"><h3>30+</h3><p>Mock Tests</p></div>
-      <div class="stat glass"><h3>Daily</h3><p>Current Affairs</p></div>
-      <div class="stat glass"><h3>100%</h3><p>Responsive</p></div>
-    </section>
-
-    <section id="features" class="section">
-      <h2>Why This Design Works</h2>
-      <div class="grid">
-        <article class="card glass"><h3>Modern UI</h3><p>Glass cards, soft gradients, and premium spacing.</p></article>
-        <article class="card glass"><h3>Fast Load</h3><p>Single HTML file with inline CSS and JS for easy GitHub hosting.</p></article>
-        <article class="card glass"><h3>Mobile First</h3><p>Adaptive layout for phones, tablets, and desktop screens.</p></article>
-        <article class="card glass"><h3>Easy Expand</h3><p>Later you can split this into pages or connect Firebase.</p></article>
-      </div>
-    </section>
-
-    <section id="categories" class="section">
-      <h2>Study Categories</h2>
-      <div class="grid" id="categoryGrid"></div>
-    </section>
-
-    <section id="quick" class="section">
-      <h2>Quick Links</h2>
-      <div class="grid">
-        <a class="card glass link-card" href="#"><h3>Dashboard</h3><p>Welcome card, streak, and progress.</p></a>
-        <a class="card glass link-card" href="#"><h3>Notes</h3><p>Category-wise notes and bookmarks.</p></a>
-        <a class="card glass link-card" href="#"><h3>Mock Test</h3><p>Timer, MCQs, results, and review.</p></a>
-        <a class="card glass link-card" href="#"><h3>Profile</h3><p>Name, photo, badges, and progress.</p></a>
-      </div>
-    </section>
-  </main>
-
-  <footer id="contact" class="footer">
-    <p>© 2026 StudySphere. Ready for GitHub Pages.</p>
+  <footer>
+    <p>© 2026 MovieHub Demo. For educational purposes only.</p>
   </footer>
 
   <script>
-    const categories = [
-      { name: "General Studies", desc: "Notes, MCQs, and papers." },
-      { name: "Reasoning", desc: "Practice sets and short tricks." },
-      { name: "Quant", desc: "Arithmetic, algebra, and speed math." },
-      { name: "Current Affairs", desc: "Daily, weekly, and monthly updates." }
+    // Sample movie data (demo only)
+    const movies = [
+      {
+        title: "Galaxy Quest",
+        category: "Sci-Fi",
+        year: 2024,
+        rating: 8.2,
+        desc: "A team of astronauts discovers a mysterious signal from deep space."
+      },
+      {
+        title: "Laugh Riot",
+        category: "Comedy",
+        year: 2023,
+        rating: 7.5,
+        desc: "Two friends start a prank business that goes hilariously wrong."
+      },
+      {
+        title: "Shadow Strike",
+        category: "Action",
+        year: 2025,
+        rating: 8.7,
+        desc: "A retired spy is pulled back into action to stop a global threat."
+      },
+      {
+        title: "Broken Hearts",
+        category: "Drama",
+        year: 2022,
+        rating: 7.9,
+        desc: "A touching story of love, loss, and second chances."
+      },
+      {
+        title: "Midnight Scream",
+        category: "Horror",
+        year: 2024,
+        rating: 6.8,
+        desc: "A group of friends encounter a haunted house on a dark night."
+      },
+      {
+        title: "Neon City",
+        category: "Sci-Fi",
+        year: 2026,
+        rating: 8.0,
+        desc: "In a cyberpunk future, a hacker fights against a corrupt AI."
+      }
     ];
 
-    const grid = document.getElementById("categoryGrid");
-    grid.innerHTML = categories.map(item => `
-      <article class="card glass">
-        <h3>${item.name}</h3>
-        <p>${item.desc}</p>
-      </article>
-    `).join("");
+    const movieGrid = document.getElementById('movieGrid');
+    const searchInput = document.getElementById('searchInput');
+    const categoryFilter = document.getElementById('categoryFilter');
 
-    const savedTheme = localStorage.getItem("theme") || "light";
-    document.documentElement.setAttribute("data-theme", savedTheme === "dark" ? "dark" : "light");
-    const themeToggle = document.getElementById("themeToggle");
-    themeToggle.textContent = savedTheme === "dark" ? "☀️" : "🌙";
-
-    themeToggle.addEventListener("click", () => {
-      const current = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark";
-      document.documentElement.setAttribute("data-theme", current === "dark" ? "dark" : "light");
-      localStorage.setItem("theme", current);
-      themeToggle.textContent = current === "dark" ? "☀️" : "🌙";
-    });
-
-    document.getElementById("menuBtn").addEventListener("click", () => {
-      document.getElementById("navLinks").classList.toggle("show");
-    });
-
-    document.getElementById("searchInput").addEventListener("input", (e) => {
-      const q = e.target.value.toLowerCase();
-      document.querySelectorAll(".card, .link-card").forEach(el => {
-        el.style.display = el.textContent.toLowerCase().includes(q) ? "" : "none";
+    function renderMovies(filteredMovies) {
+      movieGrid.innerHTML = '';
+      if (filteredMovies.length === 0) {
+        movieGrid.innerHTML = '<p style="text-align:center;grid-column:1/-1;">No movies found.</p>';
+        return;
+      }
+      filteredMovies.forEach(movie => {
+        const card = document.createElement('div');
+        card.className = 'movie-card';
+        card.innerHTML = `
+          <div class="movie-poster">🎥</div>
+          <div class="movie-info">
+            <h3 class="movie-title">${movie.title}</h3>
+            <p class="movie-meta">${movie.category} • ${movie.year} • ⭐ ${movie.rating}</p>
+            <p class="movie-desc">${movie.desc}</p>
+            <button class="download-btn" onclick="alert('Demo: This would link to a legal source or trailer.')">Download / Watch</button>
+          </div>
+        `;
+        movieGrid.appendChild(card);
       });
-    });
+    }
 
-    document.querySelectorAll(".filter").forEach(btn => {
-      btn.addEventListener("click", () => {
-        document.querySelectorAll(".filter").forEach(b => b.classList.remove("active"));
-        btn.classList.add("active");
+    function filterMovies() {
+      const query = searchInput.value.toLowerCase().trim();
+      const category = categoryFilter.value;
+
+      const filtered = movies.filter(movie => {
+        const matchesSearch = movie.title.toLowerCase().includes(query) || 
+                              movie.desc.toLowerCase().includes(query);
+        const matchesCategory = category === 'all' || movie.category === category;
+        return matchesSearch && matchesCategory;
       });
-    });
+
+      renderMovies(filtered);
+    }
+
+    searchInput.addEventListener('input', filterMovies);
+    categoryFilter.addEventListener('change', filterMovies);
+
+    // Initial render
+    renderMovies(movies);
   </script>
+
 </body>
 </html>
